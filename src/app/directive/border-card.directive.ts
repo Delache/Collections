@@ -12,11 +12,12 @@ constructor(private el: ElementRef) {
   this.setHeight(this.defaultHeight);
 }
 @Input ('appPkmnBorderCard') borderColor: string;
+
 @HostListener('mouseenter') onmouseEnter() {
-  this.setBorder('#009688');
+  this.setBorder(this.borderColor || this.defaultcolor);
 }
 @HostListener('mouseleave') onmouseLeave() {
-  this.setBorder('#f5f5f5');
+  this.setBorder(this.initialColor);
 }
 private setBorder(color: string) {
   const border = 'solid 4px ' + color;
