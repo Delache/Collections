@@ -1,6 +1,6 @@
-import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { DetailPokemonComponent } from './pages/detail-pokemon/detail-pokemon.component';
-import { PokemonListComponent } from './pages/list-pokemons/list-pokemons.component';
+import { NotFoundComponent } from './pokemons/pages/not-found/not-found.component';
+import { DetailPokemonComponent } from './pokemons/pages/detail-pokemon/detail-pokemon.component';
+import { PokemonListComponent } from './pokemons/pages/list-pokemons/list-pokemons.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 

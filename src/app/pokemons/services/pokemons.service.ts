@@ -1,4 +1,4 @@
-import { Pokemon } from './../models/pokemon';
+import { Pokemon } from '../models/pokemon';
 import { Injectable } from '@angular/core';
 
 @Injectable({
