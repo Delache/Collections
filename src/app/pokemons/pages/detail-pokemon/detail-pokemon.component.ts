@@ -20,7 +20,7 @@ ngOnInit() {
   this.pokemons = this.service.pokemons;
 
   const id = +this.route.snapshot.paramMap.get('id');
-  for(let i = 0; i < this.pokemons.length; i++) {
+  for (let i = 0; i < this.pokemons.length; i++) {
     if (this.pokemons[i].id === id) {
       this.pokemon = this.pokemons[i];
     }
@@ -29,5 +29,8 @@ ngOnInit() {
 goBack(): void {
   this.router.navigate(['/pokemons']);
 }
-
+goEdit(pokemon: Pokemon): void {
+  const link = ['/pokemon/edit', pokemon.id];
+  this.router.navigate(link);
+}
 }
