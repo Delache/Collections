@@ -12,12 +12,12 @@ export class FormPokemonComponent implements OnInit {
 @Input() pokemon: Pokemon; // propriété d'entrée du composant
 types: Array<string>; // types disponibles pour un pokémon : 'Eau', 'Feu', etc ...
 constructor(
-  private pokemonsService: PokemonsService,
+  private service: PokemonsService,
   private router: Router) { }
 
 ngOnInit() {
   // Initialisation de la propriété types
-  this.types = this.pokemonsService.getPokemonTypes();
+  this.types = this.service.getPokemonTypes();
 }
 
 // Détermine si le type passé en paramètres appartient ou non au pokémon en cours d'édition.
