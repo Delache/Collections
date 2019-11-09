@@ -3,6 +3,8 @@ import { Pokemon } from '../../models/pokemon';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router, Params } from '@angular/router';
 
+
+
 @Component({
 selector: 'app-detail-pokemon',
 templateUrl: './detail-pokemon.component.html',
@@ -21,7 +23,10 @@ ngOnInit() {
   this.service.getPokemon(id)
     .subscribe(pokemon => this.pokemon = pokemon);
 }
-
+delete(pokemon: Pokemon): void {
+  this.service.deletePokemon(pokemon)
+  .subscribe(() => this.goBack());
+}
 goBack(): void {
   this.router.navigate(['/pokemons']);
 }
