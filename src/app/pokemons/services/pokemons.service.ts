@@ -1,134 +1,48 @@
+import { HttpClient , HttpHeaders} from '@angular/common/http';
+import { POKEMONS } from './../shared/POKEMONS';
 import { Pokemon } from '../models/pokemon';
 import { Injectable } from '@angular/core';
+import { map, tap, catchError } from 'rxjs/operators';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class PokemonsService {
 
-  constructor() { }
-    pokemons: Pokemon[] = [
-      {
-        id: 1,
-        name: 'Bulbizarre',
-        hp: 25,
-        cp: 5,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/001.png',
-        types: ['Plante', 'Poison'],
-        created: new Date()
-      },
-      {
-        id: 2,
-        name: 'Salamèche',
-        hp: 28,
-        cp: 6,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/004.png',
-        types: ['Feu'],
-        created: new Date()
-      },
-      {
-        id: 3,
-        name: 'Carapuce',
-        hp: 21,
-        cp: 4,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/007.png',
-        types: ['Eau'],
-        created: new Date()
-      },
-      {
-        id: 4,
-        name: 'Aspicot',
-        hp: 16,
-        cp: 2,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/013.png',
-        types: ['Insecte', 'Poison'],
-        created: new Date()
-      },
-      {
-        id: 5,
-        name: 'Roucool',
-        hp: 30,
-        cp: 7,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/016.png',
-        types: ['Normal', 'Vol'],
-        created: new Date()
-      },
-      {
-        id: 6,
-        name: 'Rattata',
-        hp: 18,
-        cp: 6,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/019.png',
-        types: ['Normal'],
-        created: new Date()
-      },
-      {
-        id: 7,
-        name: 'Piafabec',
-        hp: 14,
-        cp: 5,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/021.png',
-        types: ['Normal', 'Vol'],
-        created: new Date()
-      },
-      {
-        id: 8,
-        name: 'Abo',
-        hp: 16,
-        cp: 4,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/023.png',
-        types: ['Poison'],
-        created: new Date()
-      },
-      {
-        id: 9,
-        name: 'Pikachu',
-        hp: 21,
-        cp: 7,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/025.png',
-        types: ['Electrik'],
-        created: new Date()
-      },
-      {
-        id: 10,
-        name: 'Sabelette',
-        hp: 19,
-        cp: 3,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/027.png',
-        types: ['Normal'],
-        created: new Date()
-      },
-      {
-        id: 11,
-        name: 'Mélofée',
-        hp: 25,
-        cp: 5,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/035.png',
-        types: ['Fée'],
-        created: new Date()
-      },
-      {
-        id: 12,
-        name: 'Groupix',
-        hp: 17,
-        cp: 8,
-        picture: 'https://assets.pokemon.com/assets/cms2/img/pokedex/detail/037.png',
-        types: ['Feu'],
-        created: new Date()
-      }
-    ];
-  getPokemons(): Pokemon[] {
-    return this.pokemons;
-  }
-  getPokemon(id: number): Pokemon {
-    const pokemons = this.getPokemons();
-    for(let index = 0; index < pokemons.length; index++) {
-      if (id === pokemons[index].id) {
-        return pokemons[index];
-      }
+  private pokemonsUrl = 'api/pokemons';
+
+  constructor(private http: HttpClient) { }
+
+  // retourne tous les pokemons
+    getPokemons(): Observable<Pokemon[]> {
+      return this.http.get<Pokemon[]>(this.pokemonsUrl).pipe(
+        tap(() => this.log(`fetched pokemons`)),
+        catchError(this.handleError(`getPokemons`, [])));
+    }
+
+    // retourne le pokemon avec l'identifiant passé
+    getPokemon(id: number): Observable<Pokemon> {
+      const url = `${this.pokemonsUrl}/${id}`;
+      return this.http.get<Pokemon>(url).pipe(
+        tap(_ => this.log(`fetched pokemon id=${id}`)),
+        catchError(this.handleError<Pokemon>(`getPokemon id=${id}`))
+      );
+    }
+
+  getPokemonTypes(): Array < string > {
+    return ['Plante', 'Feu', 'Eau', 'Insecte', 'Normal', 'Electrik', 'Poison', 'Fée', 'Vol', 'Combat', 'Psy'];
+    }
+
+    private log(log: string) {
+      console.log(log);
+    }
+
+    private handleError<T>(operation = 'operation', result?: T) {
+      return (error: any): Observable<T> => {
+        console.log(error);
+        console.log(`${operation} failed: ${error.message}`);
+        return of(result as T);
+      };
     }
   }
-  getPokemonTypes(): Array<string> {
-  return ['Plante', 'Feu', 'Eau', 'Insecte', 'Normal', 'Electrik', 'Poison', 'Fée', 'Vol', 'Combat', 'Psy'];
-  }
-}
