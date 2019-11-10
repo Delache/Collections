@@ -4,6 +4,8 @@ import { Pokemon } from '../models/pokemon';
 import { Injectable } from '@angular/core';
 import { map, tap, catchError } from 'rxjs/operators';
 import { Observable, of, pipe } from 'rxjs';
+import { temporaryAllocator } from '@angular/compiler/src/render3/view/util';
+import { $ } from 'protractor';
 
 @Injectable({
   providedIn: 'root'
@@ -52,6 +54,15 @@ export class PokemonsService {
 
     getPokemonTypes(): Array < string > {
     return ['Plante', 'Feu', 'Eau', 'Insecte', 'Normal', 'Electrik', 'Poison', 'Fée', 'Vol', 'Combat', 'Psy'];
+    }
+    searchPokemons(term: string): Observable<Pokemon[]> {
+      if (!term.trim()) {
+        return of([]);
+      }
+      return this.http.get<Pokemon[]>(`${this.pokemonsUrl}/?name=${term}`).pipe(
+        tap(() => this.log(`found pokemonsmatching"${term}`)),
+        catchError(this.handleError<Pokemon[]>('searchPokemons', []))
+        );
     }
 
     private log(log: string) {

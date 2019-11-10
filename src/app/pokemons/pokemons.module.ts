@@ -8,6 +8,7 @@ import { BorderCardDirective } from '../pokemons/directives/border-card.directiv
 import { PokemonTypeColorPipe } from '../pokemons/pipe/pokemon-type-color.pipe';
 import { EditPokemonComponent } from './pages/edit-pokemon/edit-pokemon.component';
 import { FormPokemonComponent } from './pages/edit-pokemon/form-pokemon/form-pokemon.component';
+import { PokemonSearchComponent } from './components/search-pokemons/search-pokemons.component';
 @NgModule({
   imports: [
     CommonModule,
@@ -22,6 +23,8 @@ import { FormPokemonComponent } from './pages/edit-pokemon/form-pokemon/form-pok
     PokemonTypeColorPipe,
     EditPokemonComponent,
     FormPokemonComponent,
+    PokemonSearchComponent,
+
   ],
   providers: []
 })
