@@ -1,4 +1,7 @@
-# Pokemons
+# Gestionnaire de collection
+## Exercice d'application Angular (Cursus Udemy)
+![CloseMenu](Data/CloseMenu.png)
+![OpenMenu](Data/OpenMenu.png)
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 8.3.12.
 
