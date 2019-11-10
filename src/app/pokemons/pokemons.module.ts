@@ -1,3 +1,4 @@
+import { LoaderComponent } from './../components/loader/loader.component';
 import { FormsModule } from '@angular/forms';
 import { PokemonsRouting } from './pokemons-routing.module';
 import { NgModule } from '@angular/core';
@@ -24,6 +25,7 @@ import { PokemonSearchComponent } from './components/search-pokemons/search-poke
     EditPokemonComponent,
     FormPokemonComponent,
     PokemonSearchComponent,
+    LoaderComponent,
 
   ],
   providers: []

@@ -7,7 +7,6 @@ import { PokemonsModule } from './pokemons/pokemons.module';
 import { HttpClientInMemoryWebApiModule } from 'angular-in-memory-web-api';
 import { AppComponent } from './app.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
-import { LoaderComponent } from './components/loader/loader.component';
 
 @NgModule({
   imports: [
@@ -20,7 +19,6 @@ import { LoaderComponent } from './components/loader/loader.component';
   declarations: [
     AppComponent,
     NotFoundComponent,
-    LoaderComponent,
   ],
   bootstrap: [AppComponent]
 })
